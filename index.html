@@ -171,16 +171,23 @@
   .note .star-badge{margin-right:4px}
 
   /* live calculator */
-  .calc h3 .ic{background:rgba(91,140,255,.16)}
+  .recon h3 .ic{background:rgba(91,140,255,.16)}
+  .reset{
+    margin-left:auto;cursor:pointer;font-size:11px;font-weight:700;color:var(--txt-faint);
+    text-transform:none;letter-spacing:0;padding:4px 10px;border:1px solid var(--line);border-radius:8px;
+  }
+  .reset:hover{color:var(--txt);border-color:var(--accent)}
   .calcgrid{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
   .calcfield{display:flex;flex-direction:column;gap:6px}
   .calcfield label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--txt-faint);font-weight:700}
-  .calc input[type=number]{
-    width:130px;background:var(--panel-2);border:1px solid var(--line);color:var(--txt);
+  .inunit{display:flex;gap:8px;align-items:center}
+  .inunit span{color:var(--txt-dim);font-weight:700;font-size:14px}
+  .recon input[type=number]{
+    width:120px;background:var(--panel-2);border:1px solid var(--line);color:var(--txt);
     font-size:18px;font-weight:700;padding:11px 13px;border-radius:11px;outline:none;
     font-variant-numeric:tabular-nums;-moz-appearance:textfield;
   }
-  .calc input[type=number]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
+  .recon input[type=number]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
   .unitseg{display:flex;background:var(--panel-2);border:1px solid var(--line);border-radius:11px;overflow:hidden}
   .unitseg button{
     cursor:pointer;border:none;background:transparent;color:var(--txt-dim);
@@ -202,6 +209,33 @@
   .outbox .val.accent{color:var(--accent-2)}
   .outbox .val small{font-size:14px;color:var(--txt-dim);font-weight:600;margin-left:3px}
   .calcwarn{font-size:12px;color:var(--warn);margin-top:10px;display:none}
+
+  /* dose log form controls */
+  .calcfield input[type=date],
+  .calcfield input[type=text],
+  .calcfield select{
+    background:var(--panel-2);border:1px solid var(--line);color:var(--txt);
+    font-size:15px;font-weight:600;padding:11px 13px;border-radius:11px;outline:none;
+    font-family:inherit;min-width:150px;
+  }
+  .calcfield input:focus,.calcfield select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
+  .btn-primary{
+    cursor:pointer;border:none;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:700;
+    color:#06101f;background:linear-gradient(140deg,var(--accent),var(--accent-2));
+    box-shadow:0 8px 20px rgba(91,140,255,.3)
+  }
+  .btn-primary:hover{filter:brightness(1.07)}
+  .btn-ghost{
+    cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--txt-dim);
+    border-radius:11px;padding:12px 18px;font-size:14px;font-weight:650
+  }
+  .btn-ghost:hover{color:var(--txt);border-color:var(--warn)}
+  .log-table .del{
+    cursor:pointer;border:none;background:transparent;color:var(--txt-faint);
+    font-size:16px;line-height:1;padding:4px 8px;border-radius:7px
+  }
+  .log-table .del:hover{color:var(--warn);background:rgba(255,138,91,.1)}
+  .log-table td{vertical-align:middle}
 
   /* config tabs for retatrutide / blend vials */
   .seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
@@ -239,6 +273,7 @@
     <button class="tab" data-t="motsc"><span class="dot"></span>MOTS-c</button>
     <button class="tab" data-t="reta"><span class="dot"></span>Retatrutide</button>
     <button class="tab" data-t="calc"><span class="dot"></span>⚡ Calculator</button>
+    <button class="tab" data-t="log"><span class="dot"></span>📒 Dose Log</button>
   </nav>
 
   <!-- ============ BPC-157 SOLO ============ -->
@@ -255,18 +290,21 @@
     </div>
 
     <div class="grid">
-      <div class="card span2 calc" data-conc="10" data-max="1">
-        <h3><span class="ic">⚡</span>Live Dose Calculator</h3>
+      <div class="card span2 recon" data-vial="20" data-water="2" data-dose="500" data-unit="mcg">
+        <h3><span class="ic">⚡</span>Dose Calculator<span class="reset">↺ reset</span></h3>
         <div class="calcgrid">
-          <div class="calcfield"><label>Dose</label><input type="number" class="dose" min="0" step="any" value="500"></div>
-          <div class="calcfield"><label>Unit</label><div class="unitseg"><button data-u="mcg" class="on">mcg</button><button data-u="mg">mg</button></div></div>
-          <div class="calcconc">Concentration<br><b>10 mg/mL</b> · U-100</div>
+          <div class="calcfield"><label>Vial amount</label><div class="inunit"><input type="number" class="r-vial" min="0" step="any" value="20"><span>mg</span></div></div>
+          <div class="calcfield"><label>BAC water</label><div class="inunit"><input type="number" class="r-water" min="0" step="any" value="2"><span>mL</span></div></div>
+          <div class="calcfield"><label>Dose</label><input type="number" class="r-dose" min="0" step="any" value="500"></div>
+          <div class="calcfield"><label>Unit</label><div class="unitseg r-unit"><button data-u="mcg" class="on">mcg</button><button data-u="mg">mg</button></div></div>
         </div>
         <div class="calcout">
-          <div class="outbox"><div class="lbl">Draw volume</div><div class="val out-ml">—</div></div>
-          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent out-u">—</div></div>
+          <div class="outbox"><div class="lbl">Concentration</div><div class="val accent r-conc">—</div></div>
+          <div class="outbox"><div class="lbl">Draw volume</div><div class="val r-ml">—</div></div>
+          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent r-u">—</div></div>
+          <div class="outbox"><div class="lbl">Doses / vial</div><div class="val r-doses">—</div></div>
         </div>
-        <div class="calcwarn">⚠ Above the typical max per injection for this protocol.</div>
+        <div class="calcwarn r-warn">⚠ Draw volume exceeds 1 mL — more than one U-100 syringe per dose.</div>
       </div>
 
       <div class="card">
@@ -331,18 +369,22 @@
     </div>
 
     <div class="grid">
-      <div class="card span2 calc" data-conc="10" data-max="1">
-        <h3><span class="ic">⚡</span>Live Dose Calculator</h3>
+      <div class="card span2 recon" data-vial="10" data-water="1" data-dose="1" data-unit="mg">
+        <h3><span class="ic">⚡</span>Dose Calculator<span class="reset">↺ reset</span></h3>
         <div class="calcgrid">
-          <div class="calcfield"><label>Dose</label><input type="number" class="dose" min="0" step="any" value="1"></div>
-          <div class="calcfield"><label>Unit</label><div class="unitseg"><button data-u="mcg">mcg</button><button data-u="mg" class="on">mg</button></div></div>
-          <div class="calcconc">Concentration<br><b>10 mg/mL</b> · U-100</div>
+          <div class="calcfield"><label>Vial (total)</label><div class="inunit"><input type="number" class="r-vial" min="0" step="any" value="10"><span>mg</span></div></div>
+          <div class="calcfield"><label>BAC water</label><div class="inunit"><input type="number" class="r-water" min="0" step="any" value="1"><span>mL</span></div></div>
+          <div class="calcfield"><label>Dose</label><input type="number" class="r-dose" min="0" step="any" value="1"></div>
+          <div class="calcfield"><label>Unit</label><div class="unitseg r-unit"><button data-u="mcg">mcg</button><button data-u="mg" class="on">mg</button></div></div>
         </div>
         <div class="calcout">
-          <div class="outbox"><div class="lbl">Draw volume</div><div class="val out-ml">—</div></div>
-          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent out-u">—</div></div>
+          <div class="outbox"><div class="lbl">Concentration</div><div class="val accent r-conc">—</div></div>
+          <div class="outbox"><div class="lbl">Draw volume</div><div class="val r-ml">—</div></div>
+          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent r-u">—</div></div>
+          <div class="outbox"><div class="lbl">Doses / vial</div><div class="val r-doses">—</div></div>
         </div>
-        <div class="calcwarn">⚠ Above the typical max per injection for this protocol.</div>
+        <div class="calcwarn r-warn">⚠ Draw volume exceeds 1 mL — more than one U-100 syringe per dose.</div>
+        <div class="note">Vial total is BPC + TB-500 combined (e.g. 5 mg + 5 mg = 10 mg). A 1 mg dose splits 500 mcg / 500 mcg.</div>
       </div>
 
       <div class="card">
@@ -422,18 +464,21 @@
     </div>
 
     <div class="grid">
-      <div class="card span2 calc" data-conc="5" data-max="1">
-        <h3><span class="ic">⚡</span>Live Dose Calculator</h3>
+      <div class="card span2 recon" data-vial="10" data-water="2" data-dose="500" data-unit="mcg">
+        <h3><span class="ic">⚡</span>Dose Calculator<span class="reset">↺ reset</span></h3>
         <div class="calcgrid">
-          <div class="calcfield"><label>Dose</label><input type="number" class="dose" min="0" step="any" value="500"></div>
-          <div class="calcfield"><label>Unit</label><div class="unitseg"><button data-u="mcg" class="on">mcg</button><button data-u="mg">mg</button></div></div>
-          <div class="calcconc">Concentration<br><b>5 mg/mL</b> · U-100</div>
+          <div class="calcfield"><label>Vial amount</label><div class="inunit"><input type="number" class="r-vial" min="0" step="any" value="10"><span>mg</span></div></div>
+          <div class="calcfield"><label>BAC water</label><div class="inunit"><input type="number" class="r-water" min="0" step="any" value="2"><span>mL</span></div></div>
+          <div class="calcfield"><label>Dose</label><input type="number" class="r-dose" min="0" step="any" value="500"></div>
+          <div class="calcfield"><label>Unit</label><div class="unitseg r-unit"><button data-u="mcg" class="on">mcg</button><button data-u="mg">mg</button></div></div>
         </div>
         <div class="calcout">
-          <div class="outbox"><div class="lbl">Draw volume</div><div class="val out-ml">—</div></div>
-          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent out-u">—</div></div>
+          <div class="outbox"><div class="lbl">Concentration</div><div class="val accent r-conc">—</div></div>
+          <div class="outbox"><div class="lbl">Draw volume</div><div class="val r-ml">—</div></div>
+          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent r-u">—</div></div>
+          <div class="outbox"><div class="lbl">Doses / vial</div><div class="val r-doses">—</div></div>
         </div>
-        <div class="calcwarn">⚠ Above the typical max per injection for this protocol.</div>
+        <div class="calcwarn r-warn">⚠ Draw volume exceeds 1 mL — more than one U-100 syringe per dose.</div>
       </div>
 
       <div class="card">
@@ -498,18 +543,21 @@
     </div>
 
     <div class="grid">
-      <div class="card span2 calc" data-conc="10" data-max="5">
-        <h3><span class="ic">⚡</span>Live Dose Calculator</h3>
+      <div class="card span2 recon" data-vial="40" data-water="4" data-dose="2" data-unit="mg">
+        <h3><span class="ic">⚡</span>Dose Calculator<span class="reset">↺ reset</span></h3>
         <div class="calcgrid">
-          <div class="calcfield"><label>Dose</label><input type="number" class="dose" min="0" step="any" value="2"></div>
-          <div class="calcfield"><label>Unit</label><div class="unitseg"><button data-u="mcg">mcg</button><button data-u="mg" class="on">mg</button></div></div>
-          <div class="calcconc">Concentration<br><b>10 mg/mL</b> · U-100</div>
+          <div class="calcfield"><label>Vial amount</label><div class="inunit"><input type="number" class="r-vial" min="0" step="any" value="40"><span>mg</span></div></div>
+          <div class="calcfield"><label>BAC water</label><div class="inunit"><input type="number" class="r-water" min="0" step="any" value="4"><span>mL</span></div></div>
+          <div class="calcfield"><label>Dose</label><input type="number" class="r-dose" min="0" step="any" value="2"></div>
+          <div class="calcfield"><label>Unit</label><div class="unitseg r-unit"><button data-u="mcg">mcg</button><button data-u="mg" class="on">mg</button></div></div>
         </div>
         <div class="calcout">
-          <div class="outbox"><div class="lbl">Draw volume</div><div class="val out-ml">—</div></div>
-          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent out-u">—</div></div>
+          <div class="outbox"><div class="lbl">Concentration</div><div class="val accent r-conc">—</div></div>
+          <div class="outbox"><div class="lbl">Draw volume</div><div class="val r-ml">—</div></div>
+          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent r-u">—</div></div>
+          <div class="outbox"><div class="lbl">Doses / vial</div><div class="val r-doses">—</div></div>
         </div>
-        <div class="calcwarn">⚠ Above the typical max per injection for this protocol.</div>
+        <div class="calcwarn r-warn">⚠ Draw volume exceeds 1 mL — more than one U-100 syringe per dose.</div>
       </div>
 
       <div class="card">
@@ -578,18 +626,22 @@
     </div>
 
     <div class="grid">
-      <div class="card span2 calc" data-conc="12.5" data-max="5">
-        <h3><span class="ic">⚡</span>Live Dose Calculator</h3>
+      <div class="card span2 recon" data-vial="10" data-water="0.8" data-dose="3" data-unit="mg">
+        <h3><span class="ic">⚡</span>Dose Calculator<span class="reset">↺ reset</span></h3>
         <div class="calcgrid">
-          <div class="calcfield"><label>Dose</label><input type="number" class="dose" min="0" step="any" value="3"></div>
-          <div class="calcfield"><label>Unit</label><div class="unitseg"><button data-u="mcg">mcg</button><button data-u="mg" class="on">mg</button></div></div>
-          <div class="calcconc">Concentration<br><b>12.5 mg/mL</b> · U-100</div>
+          <div class="calcfield"><label>Vial amount</label><div class="inunit"><input type="number" class="r-vial" min="0" step="any" value="10"><span>mg</span></div></div>
+          <div class="calcfield"><label>BAC water</label><div class="inunit"><input type="number" class="r-water" min="0" step="any" value="0.8"><span>mL</span></div></div>
+          <div class="calcfield"><label>Dose</label><input type="number" class="r-dose" min="0" step="any" value="3"></div>
+          <div class="calcfield"><label>Unit</label><div class="unitseg r-unit"><button data-u="mcg">mcg</button><button data-u="mg" class="on">mg</button></div></div>
         </div>
         <div class="calcout">
-          <div class="outbox"><div class="lbl">Draw volume</div><div class="val out-ml">—</div></div>
-          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent out-u">—</div></div>
+          <div class="outbox"><div class="lbl">Concentration</div><div class="val accent r-conc">—</div></div>
+          <div class="outbox"><div class="lbl">Draw volume</div><div class="val r-ml">—</div></div>
+          <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent r-u">—</div></div>
+          <div class="outbox"><div class="lbl">Doses / vial</div><div class="val r-doses">—</div></div>
         </div>
-        <div class="calcwarn">⚠ Above the typical max per injection for this protocol.</div>
+        <div class="calcwarn r-warn">⚠ Draw volume exceeds 1 mL — more than one U-100 syringe per dose.</div>
+        <div class="note">Doses / vial here counts injections; at every-5-days dosing, multiply by 5 for days of supply.</div>
       </div>
 
       <div class="card">
@@ -721,46 +773,70 @@
     </div>
 
     <div class="grid">
-      <div class="card span2 calc-recon">
-        <h3><span class="ic">🧪</span>Step 1 · Reconstitution</h3>
+      <div class="card span2 recon" data-vial="10" data-water="2" data-dose="500" data-unit="mcg">
+        <h3><span class="ic">⚡</span>Reconstitution &amp; Dose<span class="reset">↺ reset</span></h3>
         <div class="calcgrid">
-          <div class="calcfield">
-            <label>Vial amount (peptide)</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="number" class="r-vial" min="0" step="any" value="10">
-              <span class="calcconc" style="padding:0"><b>mg</b></span>
-            </div>
-          </div>
-          <div class="calcfield">
-            <label>BAC water added</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input type="number" class="r-water" min="0" step="any" value="2">
-              <span class="calcconc" style="padding:0"><b>mL</b></span>
-            </div>
-          </div>
-        </div>
-        <div class="calcout">
-          <div class="outbox" style="flex-basis:100%">
-            <div class="lbl">Resulting concentration</div>
-            <div class="val accent r-conc">—</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card span2 calc-recon-dose">
-        <h3><span class="ic">⚡</span>Step 2 · Target Dose</h3>
-        <div class="calcgrid">
+          <div class="calcfield"><label>Vial amount</label><div class="inunit"><input type="number" class="r-vial" min="0" step="any" value="10"><span>mg</span></div></div>
+          <div class="calcfield"><label>BAC water</label><div class="inunit"><input type="number" class="r-water" min="0" step="any" value="2"><span>mL</span></div></div>
           <div class="calcfield"><label>Dose</label><input type="number" class="r-dose" min="0" step="any" value="500"></div>
           <div class="calcfield"><label>Unit</label><div class="unitseg r-unit"><button data-u="mcg" class="on">mcg</button><button data-u="mg">mg</button></div></div>
-          <div class="calcconc">Using concentration<br><b class="r-conc-echo">—</b></div>
         </div>
         <div class="calcout">
+          <div class="outbox"><div class="lbl">Concentration</div><div class="val accent r-conc">—</div></div>
           <div class="outbox"><div class="lbl">Draw volume</div><div class="val r-ml">—</div></div>
           <div class="outbox"><div class="lbl">Syringe units</div><div class="val accent r-u">—</div></div>
-          <div class="outbox"><div class="lbl">Doses per vial</div><div class="val r-doses">—</div></div>
+          <div class="outbox"><div class="lbl">Doses / vial</div><div class="val r-doses">—</div></div>
         </div>
         <div class="calcwarn r-warn">⚠ Draw volume exceeds 1 mL (a standard U-100 insulin syringe). You'd need more than one syringe per dose.</div>
         <div class="note">Concentration = vial amount ÷ BAC water. Draw volume = dose ÷ concentration. Units = draw volume × 100 (U-100 scale). Doses per vial = vial amount ÷ dose.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DOSE LOG ============ -->
+  <section class="panel" id="log">
+    <div class="hero">
+      <h2>Dose Log</h2>
+      <p>Track every injection — date, peptide, dose and notes. Saved privately <b>on this device</b> (no account, no cloud). Works offline.</p>
+      <div class="pillrow">
+        <span class="pill">On-device only</span>
+        <span class="pill alt">Private</span>
+        <span class="pill">Offline</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card span2">
+        <h3><span class="ic">➕</span>Log an Injection</h3>
+        <div class="calcgrid">
+          <div class="calcfield"><label>Date</label><input type="date" class="log-date"></div>
+          <div class="calcfield"><label>Peptide</label>
+            <select class="log-pep">
+              <option>BPC-157</option>
+              <option>BPC / TB-500 Blend</option>
+              <option>TB-500</option>
+              <option>MOTS-c</option>
+              <option>Retatrutide</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="calcfield"><label>Dose</label><input type="number" class="log-dose" min="0" step="any" placeholder="500"></div>
+          <div class="calcfield"><label>Unit</label><div class="unitseg log-unit"><button data-u="mcg" class="on">mcg</button><button data-u="mg">mg</button></div></div>
+          <div class="calcfield" style="flex:1;min-width:160px"><label>Site / notes (optional)</label><input type="text" class="log-note" placeholder="e.g. left abdomen"></div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn-primary log-add">＋ Add entry</button>
+          <button class="btn-ghost log-clear">Clear all</button>
+        </div>
+      </div>
+
+      <div class="card span2">
+        <h3><span class="ic">📒</span>History <span class="log-count" style="color:var(--txt-faint);font-weight:500;text-transform:none;letter-spacing:0"></span></h3>
+        <div class="log-empty" style="color:var(--txt-faint);font-size:13.5px;padding:8px 0">No entries yet — add your first injection above.</div>
+        <table class="log-table" style="display:none">
+          <thead><tr><th>Date</th><th>Peptide</th><th>Dose</th><th>Notes</th><th></th></tr></thead>
+          <tbody class="log-rows"></tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -801,81 +877,121 @@
   wireSeg('blendseg','b');
   wireSeg('retaseg','r');
 
-  // live dose calculators
+  // shared formatter
   function fmt(n){
     if(!isFinite(n)) return '—';
     return (Math.round(n*1000)/1000).toString();
   }
-  document.querySelectorAll('.calc').forEach(card=>{
-    const conc = parseFloat(card.dataset.conc);            // mg/mL
-    const max  = parseFloat(card.dataset.max || 'Infinity');// mg per injection
-    const input = card.querySelector('.dose');
-    const uBtns = card.querySelectorAll('.unitseg button');
-    const outMl = card.querySelector('.out-ml');
-    const outU  = card.querySelector('.out-u');
-    const warn  = card.querySelector('.calcwarn');
-    let unit = card.querySelector('.unitseg button.on').dataset.u;
 
-    function calc(){
-      const v = parseFloat(input.value);
-      if(isNaN(v) || v<=0){ outMl.textContent='—'; outU.textContent='—'; warn.style.display='none'; return; }
-      const mg = unit==='mcg' ? v/1000 : v;     // normalize to mg
-      const ml = mg / conc;                       // draw volume
-      const units = ml * 100;                     // U-100 syringe
-      outMl.innerHTML = fmt(ml) + ' <small>mL</small>';
-      outU.innerHTML  = fmt(units) + ' <small>u</small>';
-      warn.style.display = mg > max ? 'block' : 'none';
-    }
-    uBtns.forEach(b=>b.addEventListener('click',()=>{
-      uBtns.forEach(x=>x.classList.remove('on'));
-      b.classList.add('on'); unit=b.dataset.u; calc();
-    }));
-    input.addEventListener('input', calc);
-    calc();
-  });
+  // unified reconstitution + dose calculator (vial mg + bac water -> conc -> volume / units / doses)
+  function wireRecon(card){
+    const vial  = card.querySelector('.r-vial');
+    const water = card.querySelector('.r-water');
+    const dose  = card.querySelector('.r-dose');
+    const uBtns = card.querySelectorAll('.r-unit button');
+    const elConc  = card.querySelector('.r-conc');
+    const elMl    = card.querySelector('.r-ml');
+    const elU     = card.querySelector('.r-u');
+    const elDoses = card.querySelector('.r-doses');
+    const elWarn  = card.querySelector('.r-warn');
+    const onBtn = card.querySelector('.r-unit button.on');
+    let unit = onBtn ? onBtn.dataset.u : 'mcg';
 
-  // reconstitution calculator (vial mg + bac water -> concentration -> dose)
-  (function(){
-    const vial  = document.querySelector('.r-vial');
-    const water = document.querySelector('.r-water');
-    const dose  = document.querySelector('.r-dose');
-    const uBtns = document.querySelectorAll('.r-unit button');
-    const elConc   = document.querySelector('.r-conc');
-    const elEcho   = document.querySelector('.r-conc-echo');
-    const elMl     = document.querySelector('.r-ml');
-    const elU      = document.querySelector('.r-u');
-    const elDoses  = document.querySelector('.r-doses');
-    const elWarn   = document.querySelector('.r-warn');
-    if(!vial) return;
-    let unit = 'mcg';
-
+    function setUnit(u){ unit=u; uBtns.forEach(b=>b.classList.toggle('on', b.dataset.u===u)); }
     function run(){
-      const vmg = parseFloat(vial.value);
-      const wml = parseFloat(water.value);
+      const vmg = parseFloat(vial.value), wml = parseFloat(water.value);
       const valid = vmg>0 && wml>0;
-      const conc = valid ? vmg/wml : NaN;          // mg/mL
+      const conc = valid ? vmg/wml : NaN;
       elConc.innerHTML = valid ? fmt(conc)+' <small>mg/mL</small>' : '—';
-      elEcho.textContent = valid ? fmt(conc)+' mg/mL' : '—';
-
       const dv = parseFloat(dose.value);
-      const dmg = unit==='mcg' ? dv/1000 : dv;     // dose in mg
+      const dmg = unit==='mcg' ? dv/1000 : dv;
       if(valid && dmg>0){
         const ml = dmg/conc;
         elMl.innerHTML    = fmt(ml)+' <small>mL</small>';
         elU.innerHTML     = fmt(ml*100)+' <small>u</small>';
         elDoses.innerHTML = Math.floor(vmg/dmg)+' <small>doses</small>';
-        elWarn.style.display = ml>1 ? 'block' : 'none';
+        if(elWarn) elWarn.style.display = ml>1 ? 'block' : 'none';
       } else {
         elMl.textContent='—'; elU.textContent='—'; elDoses.textContent='—';
-        elWarn.style.display='none';
+        if(elWarn) elWarn.style.display='none';
       }
     }
-    uBtns.forEach(b=>b.addEventListener('click',()=>{
-      uBtns.forEach(x=>x.classList.remove('on')); b.classList.add('on');
-      unit=b.dataset.u; run();
-    }));
+    uBtns.forEach(b=>b.addEventListener('click',()=>{ setUnit(b.dataset.u); run(); }));
     [vial,water,dose].forEach(el=>el.addEventListener('input',run));
+    const reset = card.querySelector('.reset');
+    if(reset) reset.addEventListener('click',()=>{
+      if(card.dataset.vial!==undefined) vial.value=card.dataset.vial;
+      if(card.dataset.water!==undefined) water.value=card.dataset.water;
+      if(card.dataset.dose!==undefined) dose.value=card.dataset.dose;
+      setUnit(card.dataset.unit||unit);
+      run();
+    });
     run();
+  }
+  document.querySelectorAll('.recon').forEach(wireRecon);
+
+  // dose log (stored locally on device)
+  (function(){
+    const panel = document.getElementById('log');
+    if(!panel) return;
+    const KEY = 'peptide-dose-log';
+    const dateI = panel.querySelector('.log-date');
+    const pepI  = panel.querySelector('.log-pep');
+    const doseI = panel.querySelector('.log-dose');
+    const noteI = panel.querySelector('.log-note');
+    const uBtns = panel.querySelectorAll('.log-unit button');
+    const addB  = panel.querySelector('.log-add');
+    const clearB= panel.querySelector('.log-clear');
+    const tbody = panel.querySelector('.log-rows');
+    const table = panel.querySelector('.log-table');
+    const empty = panel.querySelector('.log-empty');
+    const count = panel.querySelector('.log-count');
+    let unit = 'mcg';
+
+    // default date = today
+    dateI.value = new Date().toISOString().slice(0,10);
+    uBtns.forEach(b=>b.addEventListener('click',()=>{
+      uBtns.forEach(x=>x.classList.remove('on')); b.classList.add('on'); unit=b.dataset.u;
+    }));
+
+    function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){ return []; } }
+    function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
+    function esc(s){ return (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+    function render(){
+      const data = load().sort((a,b)=> (a.date<b.date?1:a.date>b.date?-1:0));
+      tbody.innerHTML='';
+      if(!data.length){ table.style.display='none'; empty.style.display='block'; count.textContent=''; return; }
+      table.style.display=''; empty.style.display='none';
+      count.textContent = '· '+data.length+' entr'+(data.length===1?'y':'ies');
+      data.forEach(e=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = '<td>'+esc(e.date)+'</td><td>'+esc(e.pep)+'</td>'+
+          '<td class="num">'+esc(String(e.dose))+' '+esc(e.unit)+'</td>'+
+          '<td style="color:var(--txt-dim)">'+esc(e.note||'')+'</td>'+
+          '<td style="text-align:right"><button class="del" title="Delete">🗑</button></td>';
+        tr.querySelector('.del').addEventListener('click',()=>{
+          save(load().filter(x=>x.id!==e.id)); render();
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    addB.addEventListener('click',()=>{
+      const dose = parseFloat(doseI.value);
+      if(!dateI.value || !(dose>0)){ doseI.focus(); return; }
+      const data = load();
+      data.push({ id:Date.now()+''+Math.random().toString(36).slice(2,6),
+        date:dateI.value, pep:pepI.value, dose:dose, unit:unit, note:noteI.value.trim() });
+      save(data);
+      doseI.value=''; noteI.value='';
+      render();
+    });
+    clearB.addEventListener('click',()=>{
+      if(load().length && confirm('Delete all logged entries? This cannot be undone.')){ save([]); render(); }
+    });
+
+    render();
   })();
 
   // PWA service worker (works when served over http/https; harmless on file://)
