@@ -1,5 +1,5 @@
 // Offline cache for the Peptide Protocol Guide
-const CACHE = 'peptides-v4';
+const CACHE = 'peptides-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -7,7 +7,8 @@ const ASSETS = [
   './icon-180.png',
   './icon-192.png',
   './icon-512.png',
-  './icon-512-maskable.png'
+  './icon-512-maskable.png',
+  './sticker.svg'
 ];
 
 self.addEventListener('install', e => {

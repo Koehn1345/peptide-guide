@@ -6,7 +6,7 @@
 <title>Peptide Protocol Guide</title>
 <!-- PWA -->
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0b1220">
+<meta name="theme-color" content="#140809">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,22 +15,22 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <style>
   :root{
-    --bg:#0b1220;
-    --bg-grad1:#0e1730;
-    --bg-grad2:#0a0f1c;
-    --panel:#121c33;
-    --panel-2:#0f1830;
-    --line:#22304f;
-    --line-soft:#1a263f;
-    --txt:#e8eefc;
-    --txt-dim:#9fb0d0;
-    --txt-faint:#6b7da0;
-    --accent:#5b8cff;
-    --accent-2:#37e0c8;
+    --bg:#140809;
+    --bg-grad1:#1d0c0e;
+    --bg-grad2:#0b0506;
+    --panel:#211214;
+    --panel-2:#170c0e;
+    --line:#3a2125;
+    --line-soft:#2a1619;
+    --txt:#f6eaea;
+    --txt-dim:#cba9ac;
+    --txt-faint:#916f73;
+    --accent:#e8392b;
+    --accent-2:#ff7a45;
     --star:#ffce4d;
-    --good:#37e0c8;
-    --warn:#ff8a5b;
-    --shadow:0 18px 50px rgba(0,0,0,.45);
+    --good:#ff7a45;
+    --warn:#ffbf4d;
+    --shadow:0 18px 50px rgba(0,0,0,.5);
     --radius:18px;
   }
   *{box-sizing:border-box}
@@ -39,8 +39,8 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
     color:var(--txt);
     background:
-      radial-gradient(1100px 600px at 80% -10%, #16244a 0%, transparent 55%),
-      radial-gradient(900px 500px at -10% 10%, #15323a 0%, transparent 50%),
+      radial-gradient(1100px 600px at 80% -10%, #531616 0%, transparent 55%),
+      radial-gradient(900px 500px at -10% 10%, #3e1810 0%, transparent 50%),
       linear-gradient(160deg,var(--bg-grad1),var(--bg-grad2));
     background-attachment:fixed;
     min-height:100vh;
@@ -65,7 +65,7 @@
     display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 22px;
     position:sticky;top:0;z-index:20;
     padding:10px;border-radius:16px;
-    background:rgba(13,20,38,.72);
+    background:rgba(28,13,15,.72);
     backdrop-filter:blur(14px);
     border:1px solid var(--line-soft);
   }
@@ -77,9 +77,9 @@
   }
   .tab:hover{color:var(--txt);background:rgba(255,255,255,.04)}
   .tab.active{
-    color:#06101f;
+    color:#1a0707;
     background:linear-gradient(140deg,var(--accent),var(--accent-2));
-    box-shadow:0 8px 20px rgba(91,140,255,.35);
+    box-shadow:0 8px 20px rgba(226,57,43,.35);
   }
   .tab .dot{display:inline-block;width:7px;height:7px;border-radius:50%;
     background:currentColor;opacity:.55;margin-right:8px;vertical-align:middle}
@@ -97,16 +97,16 @@
   }
   .hero::after{
     content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
-    background:radial-gradient(circle,rgba(91,140,255,.22),transparent 70%);
+    background:radial-gradient(circle,rgba(226,57,43,.22),transparent 70%);
   }
   .hero h2{margin:0 0 4px;font-size:21px}
   .hero p{margin:0;color:var(--txt-dim);font-size:13.5px;max-width:70ch}
   .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
   .pill{
     font-size:12px;font-weight:600;padding:6px 11px;border-radius:999px;
-    background:rgba(91,140,255,.13);color:#b9ccff;border:1px solid rgba(91,140,255,.25);
+    background:rgba(226,57,43,.13);color:#f0c2bb;border:1px solid rgba(226,57,43,.25);
   }
-  .pill.alt{background:rgba(55,224,200,.12);color:#9af0e3;border-color:rgba(55,224,200,.28)}
+  .pill.alt{background:rgba(255,122,69,.12);color:#ffc7a6;border-color:rgba(255,122,69,.28)}
 
   /* Grid + cards */
   .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-bottom:16px}
@@ -122,7 +122,7 @@
   }
   .card h3 .ic{
     width:24px;height:24px;border-radius:8px;display:grid;place-items:center;
-    background:rgba(55,224,200,.14);font-size:13px
+    background:rgba(255,122,69,.14);font-size:13px
   }
 
   /* key/value rows */
@@ -157,7 +157,7 @@
   ol.steps li::before{
     content:counter(s);position:absolute;left:0;top:8px;
     width:25px;height:25px;border-radius:8px;display:grid;place-items:center;
-    font-size:12px;font-weight:800;color:#06101f;
+    font-size:12px;font-weight:800;color:#1a0707;
     background:linear-gradient(140deg,var(--accent),var(--accent-2))
   }
   ol.steps li b{color:var(--txt)}
@@ -170,7 +170,7 @@
   .note .star-badge{margin-right:4px}
 
   /* live calculator */
-  .recon h3 .ic{background:rgba(91,140,255,.16)}
+  .recon h3 .ic{background:rgba(226,57,43,.16)}
   .reset{
     margin-left:auto;cursor:pointer;font-size:11px;font-weight:700;color:var(--txt-faint);
     text-transform:none;letter-spacing:0;padding:4px 10px;border:1px solid var(--line);border-radius:8px;
@@ -186,13 +186,13 @@
     font-size:18px;font-weight:700;padding:11px 13px;border-radius:11px;outline:none;
     font-variant-numeric:tabular-nums;-moz-appearance:textfield;
   }
-  .recon input[type=number]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
+  .recon input[type=number]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(226,57,43,.18)}
   .unitseg{display:flex;background:var(--panel-2);border:1px solid var(--line);border-radius:11px;overflow:hidden}
   .unitseg button{
     cursor:pointer;border:none;background:transparent;color:var(--txt-dim);
     padding:11px 16px;font-size:14px;font-weight:700;transition:.15s
   }
-  .unitseg button.on{background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#06101f}
+  .unitseg button.on{background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#1a0707}
   .calcconc{font-size:12.5px;color:var(--txt-faint);padding-bottom:12px}
   .calcconc b{color:var(--txt-dim)}
   .calcout{
@@ -200,7 +200,7 @@
   }
   .outbox{
     flex:1;min-width:140px;border:1px solid var(--line);border-radius:14px;
-    background:linear-gradient(150deg,rgba(91,140,255,.10),rgba(55,224,200,.06));
+    background:linear-gradient(150deg,rgba(226,57,43,.10),rgba(255,122,69,.06));
     padding:14px 16px;
   }
   .outbox .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--txt-faint);font-weight:700}
@@ -217,11 +217,11 @@
     font-size:15px;font-weight:600;padding:11px 13px;border-radius:11px;outline:none;
     font-family:inherit;min-width:150px;
   }
-  .calcfield input:focus,.calcfield select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
+  .calcfield input:focus,.calcfield select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(226,57,43,.18)}
   .btn-primary{
     cursor:pointer;border:none;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:700;
-    color:#06101f;background:linear-gradient(140deg,var(--accent),var(--accent-2));
-    box-shadow:0 8px 20px rgba(91,140,255,.3)
+    color:#1a0707;background:linear-gradient(140deg,var(--accent),var(--accent-2));
+    box-shadow:0 8px 20px rgba(226,57,43,.3)
   }
   .btn-primary:hover{filter:brightness(1.07)}
   .btn-ghost{
@@ -243,7 +243,7 @@
     padding:7px 13px;border-radius:9px;font-size:12.5px;font-weight:650;transition:.15s
   }
   .seg button:hover{color:var(--txt)}
-  .seg button.on{background:rgba(91,140,255,.16);color:#bcccff;border-color:rgba(91,140,255,.4)}
+  .seg button.on{background:rgba(226,57,43,.16);color:#f3c0b8;border-color:rgba(226,57,43,.4)}
   .vialbody{display:none}
   .vialbody.on{display:block;animation:fade .25s ease}
 
