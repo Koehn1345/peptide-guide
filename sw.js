@@ -1,5 +1,5 @@
 // Offline cache for the Peptide Protocol Guide
-const CACHE = 'peptides-v5';
+const CACHE = 'peptides-v6';
 const ASSETS = [
   './',
   './index.html',
